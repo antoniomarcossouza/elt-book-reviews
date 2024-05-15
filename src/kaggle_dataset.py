@@ -11,7 +11,7 @@ LOGGER = create_logger()
 # %%
 def kaggle_download(dataset: str, output_dir: Path) -> None:
     """Função que baixa um dataset do Kaggle.
-    
+
     Parâmetros
     ----------
     dataset : str

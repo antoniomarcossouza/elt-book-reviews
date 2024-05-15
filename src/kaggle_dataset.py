@@ -3,9 +3,11 @@ from pathlib import Path
 
 import kaggle
 from dotenv import load_dotenv
+from logger import create_logger
 
 load_dotenv()
 kaggle.api.authenticate()
+LOGGER = create_logger()
 
 
 # %%
@@ -17,3 +19,4 @@ def kaggle_download(dataset: str, output_dir: Path) -> None:
         path=output_dir,
         unzip=True,
     )
+    LOGGER.info(f"Dataset {dataset} baixado.")

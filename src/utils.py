@@ -27,7 +27,11 @@ def download_file(url: str, output_file: Path) -> None:
     LOGGER.info(f"Arquivo {output_file} baixado.")
 
 
-def json_to_parquet(input_file: str, output_file: str) -> None:
+def json_to_parquet(
+    input_file: str,
+    output_file: str,
+    columns: list[str] = ["*"]
+) -> None:
     """Função que converte um arquivo JSON para Parquet.
 
     Parâmetros
@@ -39,6 +43,6 @@ def json_to_parquet(input_file: str, output_file: str) -> None:
     """
 
     duckdb.sql(
-        f"COPY(SELECT * FROM read_json_auto('{input_file}')) TO '{output_file}' (FORMAT 'parquet');"
+        f"COPY(SELECT {", ".join(columns)} FROM read_json_auto('{input_file}')) TO '{output_file}' (FORMAT 'parquet');"
     )
     LOGGER.info(f"Arquivo {output_file} criado.")

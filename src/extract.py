@@ -1,12 +1,11 @@
 # %%
 from pathlib import Path
 
-from utils import download_file, json_to_parquet
+from utils import download_file, json_to_parquet, upload_to_gcs
 
 PROJECT_DIR = Path.cwd()
 DATA_DIR = Path(PROJECT_DIR / "data")
 DATA_DIR.mkdir(parents=True, exist_ok=True)
-
 
 # %%
 files = {
@@ -39,6 +38,7 @@ files = {
     ],
 }
 
+# %%
 for file, columns in files.items():
     json_path = DATA_DIR / file
     parquet_path = DATA_DIR / Path(json_path.stem).with_suffix(".parquet")
@@ -47,8 +47,15 @@ for file, columns in files.items():
         url=f"https://datarepo.eng.ucsd.edu/mcauley_group/gdrive/goodreads/{file}",
         output_file=json_path,
     )
+
     json_to_parquet(
         input_file=json_path,
         output_file=parquet_path,
         columns=columns,
+    )
+
+    upload_to_gcs(
+        input_file=parquet_path,
+        bucket_name="goodreads-book-reviews",
+        output_file=parquet_path.name,
     )

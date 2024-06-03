@@ -1,7 +1,7 @@
 # %%
 from pathlib import Path
 
-from utils import download_file, json_to_parquet, upload_to_gcs
+from utils import download_file, json_to_parquet, load_data
 
 PROJECT_DIR = Path.cwd()
 DATA_DIR = Path(PROJECT_DIR / "data")
@@ -60,7 +60,7 @@ for file, columns in files.items():
         columns=columns,
     )
 
-    upload_to_gcs(
+    load_data(
         input_file=parquet_path,
         bucket_name="goodreads-book-reviews",
         output_file=parquet_path.name,

@@ -5,12 +5,15 @@ from pathlib import Path
 import duckdb
 from dotenv import load_dotenv
 from google.cloud import bigquery, storage
+
 from logger import create_logger
 
 load_dotenv()
 
 LOGGER = create_logger()
 PROJECT_ID = os.environ["PROJECT_ID"]
+STAGING_DATASET_ID = os.environ["STAGING_DATASET_ID"]
+
 
 def download_file(url: str, output_file: Path) -> None:
     """Função que baixa o arquivo caso ele não exista.
@@ -32,9 +35,7 @@ def download_file(url: str, output_file: Path) -> None:
 
 
 def json_to_parquet(
-    input_file: str,
-    output_file: str,
-    columns: list[str] = ["*"]
+    input_file: str, output_file: str, columns: list[str] = ["*"]
 ) -> None:
     """Função que converte um arquivo JSON para Parquet.
 
@@ -51,12 +52,10 @@ def json_to_parquet(
     )
     LOGGER.info(f"Arquivo {output_file} criado.")
 
-def upload_to_gcs(
-    input_file: Path,
-    bucket_name: str,
-    output_file: str
-) -> None:
-    """Função que faz upload de um arquivo para o Google Cloud Storage.
+
+def load_data(input_file: Path, bucket_name: str, output_file: str) -> None:
+    """Função que faz upload de um arquivo para o
+    Google Cloud Storage e cria uma external table no BigQuery.
 
     Parâmetros
     ----------
@@ -67,12 +66,22 @@ def upload_to_gcs(
     output_file : str
         caminho do arquivo no bucket.
     """
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = str(
-        Path.cwd() / "credentials.json"
-    )
-    client = storage.Client()
-    bucket = client.bucket(bucket_name)
-    blob = bucket.blob(output_file)
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = str(Path.cwd() / "credentials.json")
 
+    gcs_client = storage.Client()
+    bucket = gcs_client.bucket(bucket_name)
+    blob = bucket.blob(output_file)
     blob.upload_from_filename(input_file)
-    LOGGER.info(f"Arquivo {input_file} enviado para o bucket {bucket_name} no caminho {output_file}.")
+    LOGGER.info(
+        f"Arquivo {input_file} enviado para o bucket {bucket_name} no caminho {output_file}."
+    )
+
+    bq_client = bigquery.Client()
+    external_config = bigquery.ExternalConfig("PARQUET")
+    external_config.source_uris = f"gs://{bucket_name}/{output_file}"
+    table = bigquery.Table(
+        bq_client.dataset(STAGING_DATASET_ID).table(output_file.replace(".parquet", ""))
+    )
+    table.external_data_configuration = external_config
+    table = bq_client.create_table(table, exists_ok=True)
+    LOGGER.info(f"Tabela {output_file} criada no BigQuery.")

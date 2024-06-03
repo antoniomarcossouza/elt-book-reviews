@@ -19,6 +19,8 @@ resource "google_storage_bucket" "goodreads_datalake" {
 
   uniform_bucket_level_access = true
   public_access_prevention    = "enforced"
+
+  force_destroy = true
 }
 
 resource "google_bigquery_dataset" "goodreads_external_dataset" {

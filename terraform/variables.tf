@@ -1,7 +1,5 @@
-variable "project" {
-  type        = string
-  description = "ID do Projeto"
-  default     = "book-recommendation-424220"
+locals {
+  envs = { for tuple in regexall("(.*)=(.*)", file("../.env")) : tuple[0] => sensitive(tuple[1]) }
 }
 
 variable "region" {

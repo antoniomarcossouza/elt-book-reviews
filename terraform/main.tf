@@ -8,7 +8,7 @@ terraform {
 }
 
 provider "google" {
-  project = var.project
+  project = local.envs["PROJECT_ID"]
   region  = var.region
 }
 
@@ -33,14 +33,14 @@ resource "google_storage_bucket" "goodreads_datalake" {
 }
 
 resource "google_bigquery_dataset" "goodreads_external_dataset" {
-  project                    = var.project
+  project                    = local.envs["PROJECT_ID"]
   location                   = var.region
   dataset_id                 = var.goodreads_external_datasets
   delete_contents_on_destroy = true
 }
 
 resource "google_bigquery_dataset" "goodreads_analytics_dataset" {
-  project                    = var.project
+  project                    = local.envs["PROJECT_ID"]
   location                   = var.region
   dataset_id                 = var.goodreads_analytics_datasets
   delete_contents_on_destroy = true

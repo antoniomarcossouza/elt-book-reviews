@@ -3,12 +3,14 @@ import urllib.request
 from pathlib import Path
 
 import duckdb
-from google.cloud import storage
-
+from dotenv import load_dotenv
+from google.cloud import bigquery, storage
 from logger import create_logger
 
-LOGGER = create_logger()
+load_dotenv()
 
+LOGGER = create_logger()
+PROJECT_ID = os.environ["PROJECT_ID"]
 
 def download_file(url: str, output_file: Path) -> None:
     """Função que baixa o arquivo caso ele não exista.

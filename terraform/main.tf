@@ -20,6 +20,15 @@ resource "google_storage_bucket" "goodreads_datalake" {
   uniform_bucket_level_access = true
   public_access_prevention    = "enforced"
 
+  lifecycle_rule {
+    condition {
+      age = 3
+    }
+    action {
+      type = "Delete"
+    }
+  }
+
   force_destroy = true
 }
 

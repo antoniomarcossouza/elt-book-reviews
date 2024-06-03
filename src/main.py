@@ -30,10 +30,7 @@ files = {
         "original_publication_year",
     ],
     "goodreads_book_series.json.gz": ["series_id", "title"],
-    "goodreads_book_authors.json.gz": [
-        "author_id",
-        "name",
-    ],
+    "goodreads_book_authors.json.gz": ["author_id", "name"],
     "goodreads_reviews_dedup.json.gz": [
         "user_id",
         "book_id",

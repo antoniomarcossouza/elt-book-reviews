@@ -24,6 +24,12 @@ files = {
         "url",
         "image_url",
     ],
+    "goodreads_book_works.json.gz": [
+        "work_id",
+        "original_title",
+        "original_publication_year",
+    ],
+    "goodreads_book_series.json.gz": ["series_id", "title"],
     "goodreads_book_authors.json.gz": [
         "author_id",
         "name",

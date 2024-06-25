@@ -1,0 +1,21 @@
+name: 'dbt_data'
+version: '1.0.0'
+profile: 'dbt_data'
+
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+# dbt clean
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+# Docs: https://docs.getdbt.com/docs/configuring-models
+models:
+  dbt_data:
+    staging:
+      +materialized: view

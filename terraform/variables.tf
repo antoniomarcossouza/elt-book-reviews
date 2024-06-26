@@ -17,7 +17,7 @@ variable "storage_class" {
 variable "goodreads_external_datasets" {
   type        = string
   description = "Dataset no BigQuery para as external tables."
-  default     = "goodreads_wh"
+  default     = "goodreads_staging"
 }
 
 variable "goodreads_analytics_datasets" {

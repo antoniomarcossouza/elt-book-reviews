@@ -3,7 +3,7 @@ version: 2
 sources:
   - name: staging
     database: book-recommendation-424220
-    schema: goodreads_wh
+    schema: goodreads_staging
     tables:
       - name: goodreads_book_series
 models:

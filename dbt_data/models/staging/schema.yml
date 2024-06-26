@@ -8,6 +8,7 @@ sources:
       - name: goodreads_book_series
       - name: goodreads_book_authors
       - name: goodreads_book_works
+      - name: goodreads_books
 models:
   - name: series
     description: "Franquia de livros"
@@ -39,3 +40,48 @@ models:
       - name: publication_year
         description: "Ano de publicação original da obra"
         data_type: numeric
+  - name: books
+    description: "Livros"
+    columns:
+      - name: id
+        description: "ID do livro"
+        data_type: numeric
+      - name: work_id
+        description: "ID da obra"
+        data_type: numeric
+      - name: series_id
+        description: "ID da franquia"
+        data_type: numeric
+      - name: title
+        description: "Título do livro"
+        data_type: string
+      - name: title_without_series
+        description: "Título do livro sem a franquia"
+        data_type: string
+      - name: author_id
+        description: "ID do autor"
+        data_type: numeric
+      - name: author_role
+        description: "Função do autor"
+        data_type: string
+      - name: publisher
+        description: "Editora"
+        data_type: string
+      - name: num_pages
+        description: "Número de páginas"
+        data_type: numeric
+      - name: publication_day
+        description: "Dia da publicação"
+        data_type: numeric
+      - name: publication_month
+        description: "Mês da publicação"
+        data_type: numeric
+      - name: publication_year
+        description: "Ano da publicação"
+        data_type: numeric
+      - name: url
+        description: "URL do livro no Goodreads"
+        data_type: string
+      - name: image_url
+        description: "URL da imagem do livro no Goodreads"
+        data_type: string

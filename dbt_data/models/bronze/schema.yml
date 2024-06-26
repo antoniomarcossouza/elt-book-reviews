@@ -9,6 +9,7 @@ sources:
       - name: goodreads_book_authors
       - name: goodreads_book_works
       - name: goodreads_books
+      - name: goodreads_reviews_dedup
 models:
   - name: series
     description: "Franquia de livros"
@@ -84,4 +85,25 @@ models:
         data_type: string
       - name: image_url
         description: "URL da imagem do livro no Goodreads"
+        data_type: string
+  - name: reviews
+    description: "Avaliações dos livros"
+    columns:
+      - name: id
+        description: "ID da avaliação"
+        data_type: bytes
+      - name: user_id
+        description: "ID do usuário que fez a avaliação"
+        data_type: bytes
+      - name: book_id
+        description: "ID do livro avaliado"
+        data_type: numeric
+      - name: rating
+        description: "Nota da avaliação"
+        data_type: numeric
+      - name: started_at
+        description: "Data de início da leitura"
+        data_type: string
+      - name: read_at
+        description: "Data de término da leitura"
         data_type: string

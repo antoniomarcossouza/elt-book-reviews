@@ -1,0 +1,18 @@
+version: 2
+
+sources:
+  - name: staging
+    database: book-recommendation-424220
+    schema: goodreads_wh
+    tables:
+      - name: goodreads_book_series
+models:
+  - name: series
+    description: "Franquia de livros"
+    columns:
+      - name: id
+        description: "ID da franquia"
+        data_type: numeric
+      - name: title
+        description: "Nome da franquia"
+        data_type: string

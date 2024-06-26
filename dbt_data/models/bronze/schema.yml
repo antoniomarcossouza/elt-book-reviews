@@ -12,98 +12,98 @@ sources:
       - name: goodreads_reviews_dedup
 models:
   - name: series
-    description: "Franquia de livros"
+    description: Franquia de livros
     columns:
       - name: id
-        description: "ID da franquia"
+        description: ID da franquia
         data_type: numeric
       - name: title
-        description: "Nome da franquia"
+        description: Nome da franquia
         data_type: string
   - name: authors
-    description: "Autores dos livros"
+    description: Autores dos livros
     columns:
       - name: id
-        description: "ID do autor"
+        description: ID do autor
         data_type: numeric
       - name: name
-        description: "Nome do autor"
+        description: Nome do autor
         data_type: string
   - name: works
-    description: "Obra (livro sem detalhes da edição)"
+    description: Obra (livro sem detalhes da edição)
     columns:
       - name: id
-        description: "ID da obra"
+        description: ID da obra
         data_type: numeric
       - name: title
-        description: "Título original da obra"
+        description: Título original da obra
         data_type: string
       - name: publication_year
-        description: "Ano de publicação original da obra"
+        description: Ano de publicação original da obra
         data_type: numeric
   - name: books
-    description: "Livros"
+    description: Livros
     columns:
       - name: id
-        description: "ID do livro"
+        description: ID do livro
         data_type: numeric
       - name: work_id
-        description: "ID da obra"
+        description: ID da obra
         data_type: numeric
       - name: series_id
-        description: "ID da franquia"
+        description: ID da franquia
         data_type: numeric
       - name: title
-        description: "Título do livro"
+        description: Título do livro
         data_type: string
       - name: title_without_series
-        description: "Título do livro sem a franquia"
+        description: Título do livro sem a franquia
         data_type: string
       - name: author_id
-        description: "ID do autor"
+        description: ID do autor
         data_type: numeric
       - name: author_role
-        description: "Função do autor"
+        description: Função do autor
         data_type: string
       - name: publisher
-        description: "Editora"
+        description: Editora
         data_type: string
       - name: num_pages
-        description: "Número de páginas"
+        description: Número de páginas
         data_type: numeric
       - name: publication_day
-        description: "Dia da publicação"
+        description: Dia da publicação
         data_type: numeric
       - name: publication_month
-        description: "Mês da publicação"
+        description: Mês da publicação
         data_type: numeric
       - name: publication_year
-        description: "Ano da publicação"
+        description: Ano da publicação
         data_type: numeric
       - name: url
-        description: "URL do livro no Goodreads"
+        description: URL do livro no Goodreads
         data_type: string
       - name: image_url
-        description: "URL da imagem do livro no Goodreads"
+        description: URL da imagem do livro no Goodreads
         data_type: string
   - name: reviews
-    description: "Avaliações dos livros"
+    description: Avaliações dos livros
     columns:
       - name: id
-        description: "ID da avaliação"
+        description: ID da avaliação
         data_type: bytes
       - name: user_id
-        description: "ID do usuário que fez a avaliação"
+        description: ID do usuário que fez a avaliação
         data_type: bytes
       - name: book_id
-        description: "ID do livro avaliado"
+        description: ID do livro avaliado
         data_type: numeric
       - name: rating
-        description: "Nota da avaliação"
+        description: Nota da avaliação
         data_type: numeric
       - name: started_at
-        description: "Data de início da leitura"
+        description: Data de início da leitura
         data_type: string
       - name: read_at
-        description: "Data de término da leitura"
+        description: Data de término da leitura
         data_type: string

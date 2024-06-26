@@ -6,6 +6,7 @@ sources:
     schema: goodreads_staging
     tables:
       - name: goodreads_book_series
+      - name: goodreads_book_authors
 models:
   - name: series
     description: "Franquia de livros"
@@ -15,4 +16,13 @@ models:
         data_type: numeric
       - name: title
         description: "Nome da franquia"
+        data_type: string
+  - name: authors
+    description: "Autores dos livros"
+    columns:
+      - name: id
+        description: "ID do autor"
+        data_type: numeric
+      - name: name
+        description: "Nome do autor"
         data_type: string

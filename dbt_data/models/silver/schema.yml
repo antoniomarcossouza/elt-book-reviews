@@ -1,0 +1,25 @@
+version: 2
+
+sources:
+  - name: analytics
+    database: book-recommendation-424220
+    schema: goodreads_analytics
+    tables:
+      - name: authors
+      - name: books
+      - name: reviews
+      - name: series
+      - name: works
+models:
+  - name: reviews_by_work
+    description: Avaliações por obra
+    columns:
+      - name: review_id
+        description: ID da avaliação
+        data_type: bytes
+      - name: work_id
+        description: ID da obra
+        data_type: numeric
+      - name: rating
+        description: Nota da avaliação
+        data_type: numeric

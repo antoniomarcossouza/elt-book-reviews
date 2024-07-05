@@ -1,15 +1,24 @@
 WITH works AS (
-    SELECT
-        NULLIF(w.`original_title`, '') AS `title`,
+    SELECT DISTINCT
         CAST(w.`work_id` AS INT64) AS `id`,
+        CASE
+            WHEN
+                NULLIF(w.`original_title`, '') IS NOT NULL
+                THEN w.`original_title`
+            ELSE b.`title_without_series`
+        END AS `title`,
         SAFE_CAST(w.`original_publication_year` AS INT64)
             AS `publication_year`
     FROM
         {{ source('staging', 'goodreads_book_works') }} AS w
+    INNER JOIN
+        {{ source('staging', 'goodreads_books') }} AS b
+        ON w.`work_id` = b.`work_id`
+    WHERE NULLIF(w.`original_title`, '') IS NULL
 )
 
 SELECT
-    `id`,
-    `title`,
-    `publication_year`
-FROM works
+    w.`id`,
+    w.`publication_year`,
+    REGEXP_REPLACE(w.`title`, r' \(.*?\)', '') AS `title`
+FROM works AS w

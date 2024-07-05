@@ -1,5 +1,6 @@
 SELECT
     r.`id` AS `review_id`,
+    r.`user_id`,
     b.`work_id`,
     r.`rating`
 FROM {{ source('analytics', 'reviews') }} AS r
